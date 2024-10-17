@@ -25,11 +25,32 @@ export function useNodesWithStatus() {
         const status = statusCondition.status || 'Unknown';
         const version = node.status.nodeInfo.kubeletVersion || 'Unknown';
         const architecture = node.status.nodeInfo.architecture || 'Unknown';
-        const containerRuntimeVersion = node.status.nodeInfo.containerRuntimeVersion || 'Unknown';
-        const operatingSystem = node.status.nodeInfo.operatingSystem || 'Unknown';
 
-        const gpuPresent = node.metadata.labels['nvidia.com/gpu.present'] || 'Not present';
+        // GPU Info
+        const gpuPresent = node.metadata.labels['nvidia.com/gpu.present'] || 'Not Present';
+        const gpuNumber = node.metadata.labels['nvidia.com/gpu.count'] || 'Unknown';
         const gpuHealth = node.metadata.labels['autopilot.ibm.com/gpuhealth'] || 'Not Pass';
+
+        // DCGM diagnostics
+        const dcgmLevel3Label = node.metadata.labels['autopilot.ibm.com/dcgm.level.3'] || 'Not Applicable';
+        let dcgmStatus = 'Unknown';
+        let dcgmTimestamp = null;
+        // let dcgmErrors = null;
+        let dcgmDetails = '';
+
+        if (dcgmLevel3Label.startsWith('ERR')) {
+            const results = dcgmLevel3Label.split('_');
+
+            dcgmStatus = 'ERR';
+            dcgmTimestamp = results[1];
+            // dcgmErrors = results.slice(2).join(' ');
+            dcgmDetails = `Failed Tests: ${results[2]}, GPU IDs: ${results[3] || 'N/A'}`;
+        } else if (dcgmLevel3Label.startsWith('PASS')) {
+            const results = dcgmLevel3Label.split('_');
+
+            dcgmStatus = 'PASS';
+            dcgmTimestamp = results[1];
+        }
 
         const capacity = node.status.capacity || {};
         const allocatable = node.status.allocatable || {};
@@ -40,17 +61,21 @@ export function useNodesWithStatus() {
             status: status,
             version: version,
             architecture: architecture,
-            containerRuntimeVersion: containerRuntimeVersion,
-            operatingSystem: operatingSystem,
 
             gpuPresent: gpuPresent,
             gpuHealth: gpuHealth,
 
+            dcgmStatus: dcgmStatus,
+            dcgmTimestamp: dcgmTimestamp,
+            dcgmDetails: dcgmDetails,
+
             capacity: {
+                gpu: capacity['nvidia.com/gpu'] || 'Unknown',
                 cpu: capacity.cpu || 'Unknown',
                 memory: capacity.memory || 'Unknown',
             },
             allocatable: {
+                gpu: allocatable['nvidia.com/gpu'] || 'Unknown',
                 cpu: allocatable.cpu || 'Unknown',
                 memory: allocatable.memory || 'Unknown',
             }

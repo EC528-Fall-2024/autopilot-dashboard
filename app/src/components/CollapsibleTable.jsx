@@ -60,14 +60,12 @@ const Row = ({ node }) => {
                     </IconButton>
                 </TableCell>
 
-                {/*Main table: name, status, role, version, hardware, containerRuntimeVersion, and OS*/}
+                {/*Main table*/}
                 <TableCell component="th" scope="row">{node.name}</TableCell>
                 <TableCell align="left">{node.status === 'True' ? 'Ready' : 'Not Ready'}</TableCell>
                 <TableCell align="left">{node.role}</TableCell>
                 <TableCell align="left">{node.version}</TableCell>
                 <TableCell align="left">{node.architecture}</TableCell>
-                <TableCell align="left">{node.containerRuntimeVersion}</TableCell>
-                <TableCell align="left">{node.operatingSystem}</TableCell>
                 <TableCell align="left">{node.gpuPresent}</TableCell>
                 <TableCell align="left">{node.gpuHealth}</TableCell>
             </StyledTableRow>
@@ -90,6 +88,11 @@ const Row = ({ node }) => {
                                 </TableHead>
                                 <TableBody>
                                     <TableRow>
+                                        <TableCell>GPU</TableCell>
+                                        <TableCell>{node.capacity.gpu}</TableCell>
+                                        <TableCell>{node.allocatable.gpu}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
                                         <TableCell>CPU</TableCell>
                                         <TableCell>{node.capacity.cpu}</TableCell>
                                         <TableCell>{node.allocatable.cpu}</TableCell>
@@ -98,6 +101,26 @@ const Row = ({ node }) => {
                                         <TableCell>Memory</TableCell>
                                         <TableCell>{node.capacity.memory}</TableCell>
                                         <TableCell>{node.allocatable.memory}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+
+                            <Typography variant="h6" gutterBottom>
+                                GPU DCGM Level 3 Diagnostics:
+                            </Typography>
+                            <Table size="small" aria-label="gpu-dcgm-diagnostics">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell>DCGM Status</StyledTableCell>
+                                        <StyledTableCell>Time Stamp</StyledTableCell>
+                                        <StyledTableCell>Details</StyledTableCell> {/*If too long, have it as another small table*/}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>{node.dcgmStatus}</TableCell>
+                                        <TableCell>{node.dcgmTimestamp}</TableCell>
+                                        <TableCell>{node.dcgmDetails}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
@@ -122,8 +145,6 @@ function CollapsibleTable({ nodes }) {
                         <StyledTableCell>Role</StyledTableCell>
                         <StyledTableCell>Version</StyledTableCell>
                         <StyledTableCell>Architecture</StyledTableCell>
-                        <StyledTableCell>Container Runtime Version</StyledTableCell>
-                        <StyledTableCell>Operating System</StyledTableCell>
                         <StyledTableCell>GPU Present</StyledTableCell>
                         <StyledTableCell>GPU Health</StyledTableCell>
                     </TableRow>
@@ -146,15 +167,18 @@ Row.propTypes = {
         role: PropTypes.string.isRequired,
         version: PropTypes.string.isRequired,
         architecture: PropTypes.string.isRequired,
-        containerRuntimeVersion: PropTypes.string.isRequired,
-        operatingSystem: PropTypes.string.isRequired,
         gpuHealth: PropTypes.string.isRequired,
         gpuPresent: PropTypes.string.isRequired,
+        dcgmStatus: PropTypes.string.isRequired,
+        dcgmTimestamp: PropTypes.string.isRequired,
+        dcgmDetails: PropTypes.string.isRequired,
         capacity: PropTypes.shape({
+            gpu: PropTypes.string.isRequired,
             cpu: PropTypes.string.isRequired,
             memory: PropTypes.string.isRequired,
         }).isRequired,
         allocatable: PropTypes.shape({
+            gpu: PropTypes.string.isRequired,
             cpu: PropTypes.string.isRequired,
             memory: PropTypes.string.isRequired,
         }).isRequired,
@@ -169,16 +193,16 @@ CollapsibleTable.propTypes = {
             role: PropTypes.string.isRequired,
             version: PropTypes.string.isRequired,
             architecture: PropTypes.string.isRequired,
-            containerRuntimeVersion: PropTypes.string.isRequired,
-            operatingSystem: PropTypes.string.isRequired,
-            capacity: PropTypes.shape({
-                cpu: PropTypes.string.isRequired,
-                memory: PropTypes.string.isRequired,
-            }).isRequired,
-            allocatable: PropTypes.shape({
-                cpu: PropTypes.string.isRequired,
-                memory: PropTypes.string.isRequired,
-            }).isRequired,
+            gpuHealth: PropTypes.string.isRequired,
+            gpuPresent: PropTypes.string.isRequired
+            // capacity: PropTypes.shape({
+            //     cpu: PropTypes.string.isRequired,
+            //     memory: PropTypes.string.isRequired,
+            // }).isRequired,
+            // allocatable: PropTypes.shape({
+            //     cpu: PropTypes.string.isRequired,
+            //     memory: PropTypes.string.isRequired,
+            // }).isRequired,
         }).isRequired
     ).isRequired,
 };
