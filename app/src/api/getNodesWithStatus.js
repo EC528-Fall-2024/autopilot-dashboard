@@ -28,15 +28,16 @@ export function useNodesWithStatus() {
 
         // GPU Info
         const gpuPresent = node.metadata.labels['nvidia.com/gpu.present'] || 'Not Present';
-        const gpuNumber = node.metadata.labels['nvidia.com/gpu.count'] || 'Unknown';
+        const gpuCount = node.metadata.labels['nvidia.com/gpu.count'] || 'Unknown';
+        const gpuModel = node.metadata.labels['nvidia.com/gpu.product'] || 'Unknown';
         const gpuHealth = node.metadata.labels['autopilot.ibm.com/gpuhealth'] || 'Not Pass';
 
         // DCGM diagnostics
         const dcgmLevel3Label = node.metadata.labels['autopilot.ibm.com/dcgm.level.3'] || 'Not Applicable';
         let dcgmStatus = 'Unknown';
-        let dcgmTimestamp = null;
+        let dcgmTimestamp = 'Unknown';
         // let dcgmErrors = null;
-        let dcgmDetails = '';
+        let dcgmDetails = 'Unknown';
 
         if (dcgmLevel3Label.startsWith('ERR')) {
             const results = dcgmLevel3Label.split('_');
@@ -64,6 +65,8 @@ export function useNodesWithStatus() {
 
             gpuPresent: gpuPresent,
             gpuHealth: gpuHealth,
+            gpuCount: gpuCount,
+            gpuModel: gpuModel,
 
             dcgmStatus: dcgmStatus,
             dcgmTimestamp: dcgmTimestamp,

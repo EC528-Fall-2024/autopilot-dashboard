@@ -67,6 +67,8 @@ const Row = ({ node }) => {
                 <TableCell align="left">{node.version}</TableCell>
                 <TableCell align="left">{node.architecture}</TableCell>
                 <TableCell align="left">{node.gpuPresent}</TableCell>
+                <TableCell align="left">{node.gpuModel}</TableCell>
+                <TableCell align="left">{node.gpuCount}</TableCell>
                 <TableCell align="left">{node.gpuHealth}</TableCell>
             </StyledTableRow>
 
@@ -146,6 +148,8 @@ function CollapsibleTable({ nodes }) {
                         <StyledTableCell>Version</StyledTableCell>
                         <StyledTableCell>Architecture</StyledTableCell>
                         <StyledTableCell>GPU Present</StyledTableCell>
+                        <StyledTableCell>GPU Type</StyledTableCell>
+                        <StyledTableCell>GPU Count</StyledTableCell>
                         <StyledTableCell>GPU Health</StyledTableCell>
                     </TableRow>
                 </TableHead>
@@ -169,6 +173,8 @@ Row.propTypes = {
         architecture: PropTypes.string.isRequired,
         gpuHealth: PropTypes.string.isRequired,
         gpuPresent: PropTypes.string.isRequired,
+        gpuModel: PropTypes.string.isRequired,
+        gpuCount: PropTypes.string.isRequired,
         dcgmStatus: PropTypes.string.isRequired,
         dcgmTimestamp: PropTypes.string.isRequired,
         dcgmDetails: PropTypes.string.isRequired,
