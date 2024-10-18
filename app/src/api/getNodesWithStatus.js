@@ -36,21 +36,23 @@ export function useNodesWithStatus() {
         const dcgmLevel3Label = node.metadata.labels['autopilot.ibm.com/dcgm.level.3'] || 'Not Applicable';
         let dcgmStatus = 'Unknown';
         let dcgmTimestamp = 'Unknown';
-        // let dcgmErrors = null;
         let dcgmDetails = 'Unknown';
 
+        // Need to take into consideration for multiple failed tests and nodes
         if (dcgmLevel3Label.startsWith('ERR')) {
             const results = dcgmLevel3Label.split('_');
+            // const failedTests = [];
+            // const gpuIDs = [];
 
             dcgmStatus = 'ERR';
             dcgmTimestamp = results[1];
-            // dcgmErrors = results.slice(2).join(' ');
-            dcgmDetails = `Failed Tests: ${results[2]}, GPU IDs: ${results[3] || 'N/A'}`;
+            dcgmDetails = results.slice(2).join(', ');
         } else if (dcgmLevel3Label.startsWith('PASS')) {
             const results = dcgmLevel3Label.split('_');
 
             dcgmStatus = 'PASS';
             dcgmTimestamp = results[1];
+            dcgmDetails = `Passed all tests`;
         }
 
         const capacity = node.status.capacity || {};

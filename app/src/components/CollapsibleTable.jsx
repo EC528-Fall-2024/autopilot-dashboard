@@ -76,58 +76,57 @@ const Row = ({ node }) => {
                 {/*Expandable table: capacity/allocatable resources, and health checks*/}
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
-                            <Typography variant="h6" gutterBottom>
-                                Capacity / Allocatable Resources:
-                            </Typography>
-                            <Table size="small" aria-label="resources">
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell>Resource</StyledTableCell>
-                                        <StyledTableCell>Capacity</StyledTableCell>
-                                        <StyledTableCell>Allocatable</StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>GPU</TableCell>
-                                        <TableCell>{node.capacity.gpu}</TableCell>
-                                        <TableCell>{node.allocatable.gpu}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>CPU</TableCell>
-                                        <TableCell>{node.capacity.cpu}</TableCell>
-                                        <TableCell>{node.allocatable.cpu}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Memory</TableCell>
-                                        <TableCell>{node.capacity.memory}</TableCell>
-                                        <TableCell>{node.allocatable.memory}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-
-                            <Typography variant="h6" gutterBottom>
-                                GPU DCGM Level 3 Diagnostics:
-                            </Typography>
-                            <Table size="small" aria-label="gpu-dcgm-diagnostics">
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell>DCGM Status</StyledTableCell>
-                                        <StyledTableCell>Time Stamp</StyledTableCell>
-                                        <StyledTableCell>Details</StyledTableCell> {/*If too long, have it as another small table*/}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>{node.dcgmStatus}</TableCell>
-                                        <TableCell>{node.dcgmTimestamp}</TableCell>
-                                        <TableCell>{node.dcgmDetails}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
+                        <br margin={1}/>
+                        <Typography variant="h6" gutterBottom>
+                            Capacity / Allocatable Resources:
+                        </Typography>
+                        <Table size="small" aria-label="resources">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Resource</StyledTableCell>
+                                    <StyledTableCell>Capacity</StyledTableCell>
+                                    <StyledTableCell>Allocatable</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>GPU</TableCell>
+                                    <TableCell>{node.capacity.gpu}</TableCell>
+                                    <TableCell>{node.allocatable.gpu}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>CPU</TableCell>
+                                    <TableCell>{node.capacity.cpu}</TableCell>
+                                    <TableCell>{node.allocatable.cpu}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Memory</TableCell>
+                                    <TableCell>{node.capacity.memory}</TableCell>
+                                    <TableCell>{node.allocatable.memory}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                        <br margin={1}/>
+                        <Typography variant="h6" gutterBottom>
+                            GPU DCGM Level 3 Diagnostics:
+                        </Typography>
+                        <Table size="small" aria-label="gpu-dcgm-diagnostics">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>DCGM Status</StyledTableCell>
+                                    <StyledTableCell>Time Stamp</StyledTableCell>
+                                    <StyledTableCell>Details</StyledTableCell> {/*If too long, have it as another small table*/}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>{node.dcgmStatus}</TableCell>
+                                    <TableCell>{node.dcgmTimestamp}</TableCell>
+                                    <TableCell>{node.dcgmDetails}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                </Collapse>
                 </TableCell>
             </TableRow>
         </>
