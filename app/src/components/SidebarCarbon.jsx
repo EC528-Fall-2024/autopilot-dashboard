@@ -6,11 +6,16 @@ import {
     SideNavDivider
 } from '@carbon/react';
 
+import keycloak from '../keycloak';
+
 function Sidebar() {
     const customSidebarStyle = {
         width: '220px',
     };
 
+    const handleLogout = () => {
+        keycloak.logout({redirectUri: window.location.origin});
+    };
     return (
         <>
             <SideNav
@@ -32,16 +37,13 @@ function Sidebar() {
                         </span>
                     </div>
                     <SideNavDivider />
-                    <SideNavLink href="/login" large>
-                        Login
-                    </SideNavLink>
                     <SideNavLink href="/monitor" large>
                         Monitor Cluster
                     </SideNavLink>
                     <SideNavLink href="/testing" large>
                         Run Tests
                     </SideNavLink>
-                    <SideNavLink href="/login" large>
+                    <SideNavLink onClick={handleLogout} large>
                         Log Out
                     </SideNavLink>
                 </SideNavItems>
