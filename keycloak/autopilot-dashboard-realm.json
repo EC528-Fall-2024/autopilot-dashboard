@@ -631,18 +631,18 @@
             "clientId": "autopilot-dashboard",
             "name": "autopilot-dashboard",
             "description": "",
-            "rootUrl": "https://prod2-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
-            "adminUrl": "https://prod2-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
-            "baseUrl": "https://prod2-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "rootUrl": "http://localhost:5173",
+            "adminUrl": "http://localhost:5173",
+            "baseUrl": "http://localhost:5173",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "https://prod2-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org/*"
+                "http://localhost:5173/*"
             ],
             "webOrigins": [
-                "https://prod2-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org"
+                "http://localhost:5173/"
             ],
             "notBefore": 0,
             "bearerOnly": false,
