@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Monitor from './Monitor';
 import Testing from './Testing';
 import Sidebar from './components/SidebarCarbon';
@@ -20,8 +20,8 @@ const MainContent = styled.div`
 
 function App() {
   return (
-      <KeycloakProvider>
-        <div style={{ display: 'flex' }}>
+    <KeycloakProvider>
+      <div style={{ display: 'flex' }}>
         <Sidebar />
         <MainContent>
           <Routes>
@@ -30,7 +30,7 @@ function App() {
           </Routes>
         </MainContent>
       </div>
-      </KeycloakProvider>
+    </KeycloakProvider>
   );
 }
 

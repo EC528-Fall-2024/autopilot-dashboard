@@ -639,7 +639,8 @@
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "http://localhost:5173/*"
+                "http://localhost:5173/",
+                "http://localhost:5173/monitor"
             ],
             "webOrigins": [
                 "http://localhost:5173/"
@@ -1508,7 +1509,8 @@
         "config": {
             "clientId": "0v23liiaQ0DvmNagL0Vd",
             "clientSecret": "078d3f9b64217271ad634973dbf283d4d2f6f253",
-            "defaultScope": "user:email"
+            "defaultScope": "user:email",
+            "redirectUri": "http://localhost:8080/realms/autopilot-dashboard/broker/github/endpoint"
         }
     }],
 
