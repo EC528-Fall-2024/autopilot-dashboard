@@ -25,6 +25,7 @@ function App() {
         <Sidebar />
         <MainContent>
           <Routes>
+            <Route path="/" element={<Monitor />} />
             <Route path="/monitor" element={<Monitor />} />
             <Route path="/testing" element={<Testing />} />
           </Routes>

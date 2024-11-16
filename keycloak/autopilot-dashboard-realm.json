@@ -639,11 +639,10 @@
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "http://localhost:5173/",
-                "http://localhost:5173/monitor"
+                "http://localhost:5173/*"
             ],
             "webOrigins": [
-                "http://localhost:5173/"
+                "http://localhost:5173"
             ],
             "notBefore": 0,
             "bearerOnly": false,
@@ -1494,26 +1493,27 @@
     "enabledEventTypes": [],
     "adminEventsEnabled": false,
     "adminEventsDetailsEnabled": false,
-    
-    "identityProviders": [ {
-        "providerId" : "github",
-        "alias": "github",
-        "displayName": "Github",
-        "enabled": true,
-        "trustEmail": true,
-        "storeToken": false,
-        "addReadTokenRoleOnCreate": false,
-        "authenticateByDefault": false,
-        "linkOnly": false,
-        "firstBrokerLoginFlowAlias": "first broker login",
-        "config": {
-            "clientId": "0v23liiaQ0DvmNagL0Vd",
-            "clientSecret": "078d3f9b64217271ad634973dbf283d4d2f6f253",
-            "defaultScope": "user:email",
-            "redirectUri": "http://localhost:8080/realms/autopilot-dashboard/broker/github/endpoint"
+    "identityProviders": [
+        {
+            "providerId": "github",
+            "alias": "github",
+            "displayName": "Github",
+            "enabled": true,
+            "trustEmail": true,
+            "storeToken": false,
+            "addReadTokenRoleOnCreate": false,
+            "authenticateByDefault": false,
+            "linkOnly": false,
+            "firstBrokerLoginFlowAlias": "first broker login",
+            "config": {
+                "syncMode": "IMPORT",
+                "useJwksUrl": "true",
+                "clientId": "Ov23li8igNZFeKJaD4mD",
+                "clientSecret": "683caae8a28366dd77640c3c0933e5543f7d0f8d",
+                "defaultScope": "user:email"
+            }
         }
-    }],
-
+    ],
     "identityProviderMappers": [],
     "components": {
         "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [

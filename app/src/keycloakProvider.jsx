@@ -11,9 +11,9 @@ function KeycloakProvider({ children }) {
             .init({ onLoad: 'login-required' })
             .then((authenticated) => {
                 setInitialized(true);
-                if (authenticated) {
-                    navigate('/monitor'); // Redirect to /monitor after successful login
-                }
+                // if (authenticated) {
+                //     navigate('/monitor'); // Redirect to /monitor after successful login
+                // }
             })
             .catch(() => setInitialized(false));
     }, [navigate]);
