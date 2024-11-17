@@ -10,10 +10,15 @@ function KeycloakProvider({ children }) {
         keycloak
             .init({ onLoad: 'login-required' })
             .then((authenticated) => {
+                const userEmail = keycloak.tokenParsed?.email;
+
+                const users = import.meta.env.VITE_USERS?.split(',') || [];
+
+                if (!userEmail || !users.includes(userEmail)) {
+                    keycloak.logout();
+                    return;
+                }
                 setInitialized(true);
-                // if (authenticated) {
-                //     navigate('/monitor'); // Redirect to /monitor after successful login
-                // }
             })
             .catch(() => setInitialized(false));
     }, [navigate]);

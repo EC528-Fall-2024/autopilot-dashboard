@@ -5,6 +5,7 @@ import watchNodesWithStatus from "./api/watchNodesWithStatus.js";
 import { Helmet } from 'react-helmet';
 import * as styles from './Styles';
 import { Button, Toggle, NumberInput, TextInput, FilterableMultiSelect } from '@carbon/react';
+import keycloak from './keycloak';
 
 function Testing() {
     const [selectedTests, setSelectedTests] = useState([]);
@@ -19,6 +20,8 @@ function Testing() {
 
     const [terminalValue, setTerminalValue] = useState('');
     const [nodes, setNodes] = useState([]);
+
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const tests = ['pciebw', 'dcgm', 'remapped', 'ping', 'iperf', 'pvc', 'gpumem'];
 
@@ -106,6 +109,16 @@ function Testing() {
     };
 
     const maxLength = getMaxItemLength();
+
+    useEffect(() => {
+        const admins = import.meta.env.VITE_ADMINS?.split(',') || [];
+        const currentUserEmail = keycloak.tokenParsed?.email;
+
+        // Check if the current user's email is in the restricted list
+        if (currentUserEmail && admins.includes(currentUserEmail)) {
+            setIsAdmin(true);
+        }
+    }, []);
     return (
         <div>
             <Helmet>
@@ -212,7 +225,7 @@ function Testing() {
                     </div>
 
                     <div style={styles.testParameterStyle}>
-                        <Button kind="danger" onClick={submitTests}>
+                        <Button kind="danger" onClick={submitTests} disabled={!isAdmin}>
                             Run Tests
                         </Button>
                     </div>

@@ -1,7 +1,7 @@
 import Keycloak from 'keycloak-js';
 
 const keycloak = new Keycloak({
-    url: 'http://localhost:8080',
+    url: import.meta.env.VITE_KEYCLOAK_URL,
     realm: 'autopilot-dashboard',
     clientId: 'autopilot-dashboard',
 });
