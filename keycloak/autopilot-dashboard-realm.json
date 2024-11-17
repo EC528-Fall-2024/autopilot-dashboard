@@ -631,18 +631,18 @@
             "clientId": "autopilot-dashboard",
             "name": "autopilot-dashboard",
             "description": "",
-            "rootUrl": "http://localhost:5173",
-            "adminUrl": "http://localhost:5173",
-            "baseUrl": "http://localhost:5173",
+            "rootUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "adminUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "baseUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "http://localhost:5173/*"
+                "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org/*"
             ],
             "webOrigins": [
-                "http://localhost:5173"
+                "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org"
             ],
             "notBefore": 0,
             "bearerOnly": false,
