@@ -10,11 +10,11 @@ function KeycloakProvider({ children }) {
         keycloak
             .init({ onLoad: 'login-required' })
             .then((authenticated) => {
-                const userEmail = keycloak.tokenParsed?.email;
+                const username = keycloak.tokenParsed?.preferred_username;
 
                 const users = import.meta.env.VITE_USERS?.split(',') || [];
 
-                if (!userEmail || !users.includes(userEmail)) {
+                if (!username || !users.includes(username)) {
                     keycloak.logout();
                     return;
                 }

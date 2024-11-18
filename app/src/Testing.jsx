@@ -112,10 +112,10 @@ function Testing() {
 
     useEffect(() => {
         const admins = import.meta.env.VITE_ADMINS?.split(',') || [];
-        const currentUserEmail = keycloak.tokenParsed?.email;
+        const currentUsername = keycloak.tokenParsed?.preferred_username;
 
         // Check if the current user's email is in the restricted list
-        if (currentUserEmail && admins.includes(currentUserEmail)) {
+        if (currentUsername && admins.includes(currentUsername)) {
             setIsAdmin(true);
         }
     }, []);
