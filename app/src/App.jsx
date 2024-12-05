@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './Login';
+import { Routes, Route } from 'react-router-dom';
 import Monitor from './Monitor';
 import Testing from './Testing';
 import Sidebar from './components/SidebarCarbon';
 import styled from 'styled-components';
 import '@carbon/styles/css/styles.css';
+import KeycloakProvider from './keycloakProvider';
 
 const MainContent = styled.div`
   margin-left: 220px; /* Adjust according to sidebar width */
@@ -20,19 +20,18 @@ const MainContent = styled.div`
 
 function App() {
   return (
-    <Router>
+    <KeycloakProvider>
       <div style={{ display: 'flex' }}>
         <Sidebar />
         <MainContent>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Monitor />} />
             <Route path="/monitor" element={<Monitor />} />
             <Route path="/testing" element={<Testing />} />
           </Routes>
         </MainContent>
       </div>
-    </Router>
+    </KeycloakProvider>
   );
 }
 

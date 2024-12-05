@@ -4,6 +4,7 @@ import runTests from './api/runTests';
 import watchNodesWithStatus from "./api/watchNodesWithStatus.js";
 import * as styles from './Styles';
 import { Button, Toggle, NumberInput, TextInput, FilterableMultiSelect, Loading } from '@carbon/react';
+import keycloak from './keycloak';
 
 const workerNodePrefix = import.meta.env.VITE_WORKER_NODE_PREFIX;
 
@@ -21,6 +22,8 @@ function Testing() {
     const [terminalValue, setTerminalValue] = useState('');
     const [nodes, setNodes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const tests = ['pciebw', 'dcgm', 'remapped', 'ping', 'iperf', 'pvc', 'gpumem'];
 
@@ -117,6 +120,16 @@ function Testing() {
     };
 
     const maxLength = getMaxItemLength();
+
+    useEffect(() => {
+        const admins = import.meta.env.VITE_ADMINS?.split(',') || [];
+        const currentUsername = keycloak.tokenParsed?.preferred_username;
+
+        // Check if the current user's email is in the restricted list
+        if (currentUsername && admins.includes(currentUsername)) {
+            setIsAdmin(true);
+        }
+    }, []);
     return (
         <div>
             <h1 style={styles.headerStyle}>Run Tests</h1>
@@ -220,7 +233,7 @@ function Testing() {
                     </div>
 
                     <div style={styles.testParameterStyle}>
-                        <Button kind="danger" onClick={submitTests}>
+                        <Button kind="danger" onClick={submitTests} disabled={!isAdmin}>
                             Run Tests
                         </Button>
                     </div>
