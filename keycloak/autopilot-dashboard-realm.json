@@ -631,18 +631,18 @@
             "clientId": "autopilot-dashboard",
             "name": "autopilot-dashboard",
             "description": "",
-            "rootUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
-            "adminUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
-            "baseUrl": "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "rootUrl": "https://prod-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "adminUrl": "https://prod-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
+            "baseUrl": "https://prod-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org",
             "surrogateAuthRequired": false,
             "enabled": true,
             "alwaysDisplayInConsole": false,
             "clientAuthenticatorType": "client-secret",
             "redirectUris": [
-                "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org/*"
+                "https://prod-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org/*"
             ],
             "webOrigins": [
-                "https://sprint5-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org"
+                "https://prod-autopilot-dashboard-f3dc9e.apps.shift.nerc.mghpcc.org"
             ],
             "notBefore": 0,
             "bearerOnly": false,
