@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Terminal from './components/Terminal';
 import runTests from './api/runTests';
 import watchNodesWithStatus from "./api/watchNodesWithStatus.js";
-import { Helmet } from 'react-helmet';
 import * as styles from './Styles';
-import { Button, Toggle, NumberInput, TextInput, FilterableMultiSelect } from '@carbon/react';
+import { Button, Toggle, NumberInput, TextInput, FilterableMultiSelect, Loading } from '@carbon/react';
 import keycloak from './keycloak';
+
+const workerNodePrefix = import.meta.env.VITE_WORKER_NODE_PREFIX;
 
 function Testing() {
     const [selectedTests, setSelectedTests] = useState([]);
@@ -20,6 +21,7 @@ function Testing() {
 
     const [terminalValue, setTerminalValue] = useState('');
     const [nodes, setNodes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -40,14 +42,20 @@ function Testing() {
         };
 
         watchNodesWithStatus(handleNodeChange)
-            .then(() => console.log('Started watching nodes'))
+            .then(() => { })
             .catch((err) => {
                 console.error('Error fetching nodes:', err);
             });
     }, []);
 
+    useEffect(() => {
+        document.title = 'Testing';
+    }, []);
+
     // Filter nodes for worker nodes only
-    const workerNodes = nodes.filter(node => node.startsWith('wrk'));
+    const workerNodes = nodes.filter(node => node.startsWith(workerNodePrefix));
+    // const workerNodes = nodes.filter(node => node.includes('worker'));
+
 
     const handleSelectTests = (selected) => {
         setSelectedTests(selected);
@@ -62,13 +70,16 @@ function Testing() {
     };
 
     const submitTests = () => {
+        setIsLoading(true);
         runTests(selectedTests, selectedNodes, jobInput, labelInput, batchValue, dcgmRValue)
             .then((results) => {
                 setTerminalValue(results);
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching test results:', error);
                 setTerminalValue('Error: ' + error.message);
+                setIsLoading(false);
             });
     };
 
@@ -121,9 +132,6 @@ function Testing() {
     }, []);
     return (
         <div>
-            <Helmet>
-                <title>Testing</title>
-            </Helmet>
             <h1 style={styles.headerStyle}>Run Tests</h1>
             <div style={styles.containerStyle}>
                 <div style={styles.sectionStyle}>
@@ -236,6 +244,7 @@ function Testing() {
                     <Terminal output={terminalValue} />
                 </div>
             </div>
+            {isLoading && <Loading />}
         </div>
     );
 }
